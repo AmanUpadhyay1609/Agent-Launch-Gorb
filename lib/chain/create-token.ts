@@ -9,8 +9,7 @@ import {
   getAssociatedTokenAddress,
 } from "@solana/spl-token"
 import type { WalletContextState } from "@solana/wallet-adapter-react"
-
-const SOLANA_RPC_URL = process.env.NEXT_PUBLIC_SOLANA_RPC_URL || "https://api.devnet.solana.com"
+import { GORB_CONNECTION } from "@/constant";
 
 export async function createToken(
   wallet: WalletContextState,
@@ -24,14 +23,13 @@ export async function createToken(
     throw new Error("Wallet not connected")
   }
 
-  const connection = new Connection(SOLANA_RPC_URL, "confirmed")
 
   // Generate new mint keypair
   const mintKeypair = Keypair.generate()
   const mint = mintKeypair.publicKey
 
   // Get rent exemption amount
-  const lamports = await getMinimumBalanceForRentExemptMint(connection)
+  const lamports = await getMinimumBalanceForRentExemptMint(GORB_CONNECTION)
 
   // Create associated token account for the wallet
   const associatedTokenAccount = await getAssociatedTokenAddress(mint, wallet.publicKey)
@@ -55,7 +53,7 @@ export async function createToken(
   )
 
   // Get recent blockhash
-  const { blockhash } = await connection.getLatestBlockhash()
+  const { blockhash } = await GORB_CONNECTION.getLatestBlockhash()
   transaction.recentBlockhash = blockhash
   transaction.feePayer = wallet.publicKey
 
@@ -66,10 +64,10 @@ export async function createToken(
   const signedTransaction = await wallet.signTransaction(transaction)
 
   // Send transaction
-  const signature = await connection.sendRawTransaction(signedTransaction.serialize())
+  const signature = await GORB_CONNECTION.sendRawTransaction(signedTransaction.serialize())
 
   // Confirm transaction
-  await connection.confirmTransaction(signature, "confirmed")
+  await GORB_CONNECTION.confirmTransaction(signature, "confirmed")
 
   console.log("[v0] Token created:", mint.toBase58(), "Signature:", signature)
 

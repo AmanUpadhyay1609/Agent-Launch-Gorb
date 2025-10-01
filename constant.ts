@@ -1,4 +1,4 @@
-import { PublicKey } from "@solana/web3.js"
+import { Connection, PublicKey } from "@solana/web3.js"
 
 // AMM Program ID (replace with your actual program ID)
 export const getAMMProgramId = () => new PublicKey("EtGrXaRpEdozMtfd8tbkbrbDN8LqZNba3xWTdT3HtQWq")
@@ -27,3 +27,12 @@ export const getNativeSolMint = () => new PublicKey("So1111111111111111111111111
 
 // SPL Token Program ID
 export const getSplTokenProgramId = () => new PublicKey("G22oYgZ6LnVcy7v8eSNi2xpNk1NcZiPD8CVKSTut7oZ6")
+
+
+const RPC_ENDPOINT = process.env.NEXT_PUBLIC_GORB_RPC_URL || "https://rpc.gorbchain.xyz";
+const WS_ENDPOINT =   process.env.NEXT_PUBLIC_GORB_WSS_URL||"wss://rpc.gorbchain.xyz/ws/";
+export const GORB_CONNECTION = new Connection(RPC_ENDPOINT, {
+  commitment: "confirmed",
+  wsEndpoint: WS_ENDPOINT,
+  disableRetryOnRateLimit: false,
+});

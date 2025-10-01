@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Loader2, Rocket } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { GORB_CONNECTION } from "@/constant"
 
 export default function LaunchPage() {
   const router = useRouter()
@@ -29,6 +30,7 @@ export default function LaunchPage() {
     tokenSymbol: "",
     tokenDescription: "",
     tokenSupply: "",
+    tokenUri: "",
     isTradable: false,
     twitter: "",
     discord: "",
@@ -56,9 +58,8 @@ export default function LaunchPage() {
       // Dynamically import Solana functions to avoid SSR issues
       const { createTokenWithWallet } = await import("@/lib/solana/create-token")
       const { createPool } = await import("@/lib/solana/create-pool")
-      const { Connection } = await import("@solana/web3.js")
       
-      const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT || "https://rpc.gorbchain.xyz", "confirmed")
+      const connection = GORB_CONNECTION
       
       const tokenResult = await createTokenWithWallet({
         connection,
@@ -67,7 +68,7 @@ export default function LaunchPage() {
         symbol: formData.tokenSymbol,
         supply: Number(formData.tokenSupply).toString(),
         decimals: "9",
-        uri: "", // metadata URI (can be added later)
+        uri: formData.tokenUri || "", // Use token URI from form
         freezeAuth: null,
       })
       
@@ -234,6 +235,21 @@ export default function LaunchPage() {
                   required
                   rows={4}
                 />
+              </div>
+
+              {/* Token URI/Logo */}
+              <div className="space-y-2">
+                <Label htmlFor="tokenUri">Token Logo URI (Optional)</Label>
+                <Input
+                  id="tokenUri"
+                  type="url"
+                  placeholder="https://example.com/logo.png"
+                  value={formData.tokenUri}
+                  onChange={(e) => setFormData({ ...formData, tokenUri: e.target.value })}
+                />
+                <p className="text-sm text-muted-foreground">
+                  URL to your token's logo image (PNG, JPG, or SVG)
+                </p>
               </div>
 
               {/* Tradable Switch */}
