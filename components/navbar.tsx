@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { WalletButton } from "./wallet-button"
+import { ThemeToggler } from "./theme-toggler"
 import { useAuth } from "@/hooks/use-auth"
 import { Button } from "./ui/button"
 import { Rocket } from "lucide-react"
@@ -27,6 +28,7 @@ export function Navbar() {
                 <Button variant="ghost">Dashboard</Button>
               </Link>
             )}
+            <ThemeToggler />
             <WalletButton />
           </div>
         </div>
