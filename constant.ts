@@ -1,26 +1,29 @@
 import { PublicKey } from "@solana/web3.js"
 
 // AMM Program ID (replace with your actual program ID)
-export const getAMMProgramId = () => new PublicKey("YourAMMProgramIDHere111111111111111111111")
+export const getAMMProgramId = () => new PublicKey("EtGrXaRpEdozMtfd8tbkbrbDN8LqZNba3xWTdT3HtQWq")
 
+export const AMM_PROGRAM_ID = new PublicKey("EtGrXaRpEdozMtfd8tbkbrbDN8LqZNba3xWTdT3HtQWq");
+export const SPL_TOKEN_PROGRAM_ID = new PublicKey("G22oYgZ6LnVcy7v8eSNi2xpNk1NcZiPD8CVKSTut7oZ6");
+export const ATA_PROGRAM_ID = new PublicKey("GoATGVNeSXerFerPqTJ8hcED1msPWHHLxao2vwBYqowm");
 // Instruction discriminators
 export const INSTRUCTION_DISCRIMINATORS = {
   INIT_POOL: 0,
   ADD_LIQUIDITY: 1,
   REMOVE_LIQUIDITY: 2,
   SWAP: 3,
-}
+} as const;
 
-// Instruction data sizes
+// --- INSTRUCTION DATA SIZES ---
 export const INSTRUCTION_DATA_SIZES = {
-  INIT_POOL: 17, // 1 byte discriminator + 8 bytes amountA + 8 bytes amountB
-  ADD_LIQUIDITY: 25,
-  REMOVE_LIQUIDITY: 9,
-  SWAP: 17,
-}
+  INIT_POOL: 1 + 8 + 8, // discriminator + amount_a + amount_b
+  SWAP: 1 + 8 + 1,      // discriminator + amount_in + direction_a_to_b
+  ADD_LIQUIDITY: 1 + 8 + 8, // discriminator + amount_a + amount_b
+  REMOVE_LIQUIDITY: 1 + 8,  // discriminator + lp_amount
+} as const;
 
 // Native SOL mint address
 export const getNativeSolMint = () => new PublicKey("So11111111111111111111111111111111111111112")
 
 // SPL Token Program ID
-export const getSplTokenProgramId = () => new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+export const getSplTokenProgramId = () => new PublicKey("G22oYgZ6LnVcy7v8eSNi2xpNk1NcZiPD8CVKSTut7oZ6")

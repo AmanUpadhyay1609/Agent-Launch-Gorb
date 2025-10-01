@@ -13,6 +13,7 @@ export async function initPool(
   if (!wallet.publicKey || !wallet.signTransaction) {
     throw new Error("Wallet not connected")
   }
+  console.log("Initializing pool", tokenMint, tokenAmount, solAmount)
 
   const connection = new Connection(SOLANA_RPC_URL, "confirmed")
   const mint = new PublicKey(tokenMint)

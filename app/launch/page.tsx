@@ -53,17 +53,26 @@ export default function LaunchPage() {
     setIsSubmitting(true)
 
     try {
-      // Dynamically import chain functions to avoid SSR issues
-      const { createToken, initPool } = await import("@/lib/chain")
+      // Dynamically import Solana functions to avoid SSR issues
+      const { createTokenWithWallet } = await import("@/lib/solana/create-token")
+      const { createPool } = await import("@/lib/solana/create-pool")
+      const { Connection } = await import("@solana/web3.js")
       
-      const { mint, signature } = await createToken(
+      const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT || "https://rpc.gorbchain.xyz", "confirmed")
+      
+      const tokenResult = await createTokenWithWallet({
+        connection,
         wallet,
-        formData.tokenName,
-        formData.tokenSymbol,
-        Number(formData.tokenSupply),
-        9, // decimals
-        "", // metadata URI (can be added later)
-      )
+        name: formData.tokenName,
+        symbol: formData.tokenSymbol,
+        supply: Number(formData.tokenSupply).toString(),
+        decimals: "9",
+        uri: "", // metadata URI (can be added later)
+        freezeAuth: null,
+      })
+      
+      const mint = tokenResult.tokenAddress
+      const signature = tokenResult.signature
 
       console.log("[v0] Token created:", mint, signature)
 
@@ -71,13 +80,33 @@ export default function LaunchPage() {
       let externalSwapUrl: string | undefined
 
       if (formData.isTradable) {
-        const poolResult = await initPool(
-          wallet,
-          mint,
-          Number(formData.tokenSupply) * 0.5, // 50% of supply to pool
+        // Create token info objects for the pool
+        const tokenA = {
+          address: "So11111111111111111111111111111111111111112", // Native SOL
+          symbol: "GORB",
+          decimals: 9,
+        }
+
+        const tokenB = {
+          address: mint,
+          symbol: formData.tokenSymbol,
+          decimals: 9,
+        }
+
+        const poolResult = await createPool(
+          tokenA,
+          tokenB,
           10, // 10 SOL initial liquidity
+          Number(formData.tokenSupply) * 0.5, // 50% of supply to pool
+          wallet,
+          connection
         )
-        poolAddress = poolResult.poolAddress
+
+        if (!poolResult.success) {
+          throw new Error(poolResult.error || "Failed to create pool")
+        }
+
+        poolAddress = poolResult.poolInfo!.poolPDA
         externalSwapUrl = `https://swap.gorbchain.io/pool/${poolAddress}`
         console.log("[v0] Pool created:", poolAddress)
       }
