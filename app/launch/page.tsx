@@ -97,7 +97,7 @@ export default function LaunchPage() {
         const poolResult = await createPool(
           tokenA,
           tokenB,
-          10, // 10 SOL initial liquidity
+          0.1, // 1 GORB initial liquidity
           Number(formData.tokenSupply) * 0.5, // 50% of supply to pool
           wallet,
           connection
