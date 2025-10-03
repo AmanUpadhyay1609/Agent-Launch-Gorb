@@ -1,6 +1,6 @@
 import { type Connection, PublicKey, SystemProgram, LAMPORTS_PER_SOL } from "@solana/web3.js"
 import type { WalletContextState } from "@solana/wallet-adapter-react"
-import { getAMMProgramId, INSTRUCTION_DISCRIMINATORS, INSTRUCTION_DATA_SIZES } from "@/constant"
+import { AMM_PROGRAM_ID, INSTRUCTION_DISCRIMINATORS, INSTRUCTION_DATA_SIZES } from "@/constant"
 import {
   derivePoolPDA,
   deriveLPMintPDA,
@@ -256,7 +256,7 @@ export async function createPool(
     // Add InitPool instruction
     transaction.add({
       keys: accounts,
-      programId: getAMMProgramId(),
+      programId: AMM_PROGRAM_ID,
       data,
     })
 

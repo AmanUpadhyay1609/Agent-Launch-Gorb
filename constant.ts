@@ -24,9 +24,17 @@ export const INSTRUCTION_DATA_SIZES = {
 
 // Native SOL mint address
 export const getNativeSolMint = () => new PublicKey("So11111111111111111111111111111111111111112")
+export const NATIVE_SOL_MINT = new PublicKey("So11111111111111111111111111111111111111112")
 
 // SPL Token Program ID
 export const getSplTokenProgramId = () => new PublicKey("G22oYgZ6LnVcy7v8eSNi2xpNk1NcZiPD8CVKSTut7oZ6")
+
+// Seeds for PDA derivation
+export const SEEDS = {
+  POOL: "pool",
+  MINT: "mint", 
+  VAULT: "vault",
+} as const
 
 
 const RPC_ENDPOINT = process.env.NEXT_PUBLIC_GORB_RPC_URL || "https://rpc.gorbchain.xyz";
