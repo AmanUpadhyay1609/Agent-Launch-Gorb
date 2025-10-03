@@ -119,6 +119,7 @@ export default function LaunchPage() {
         tokenDescription: formData.organizationDescription,
         tokenSupply: 1000000, // Fixed 1 million tokens
         tokenMint: mint,
+        tokenUri: formData.tokenUri?.trim() || undefined,
         isTradable: formData.isTradable,
         poolAddress,
         externalSwapUrl,
@@ -130,6 +131,7 @@ export default function LaunchPage() {
         },
       }
 
+      console.log("[v0] Launch data being sent:", launchData)
       const result = await dispatch(createLaunch(launchData)).unwrap()
 
       toast({

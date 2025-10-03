@@ -23,7 +23,11 @@ export async function POST(request: NextRequest) {
     await connectDB()
     const body = await request.json()
 
+    // console.log("[API] Received launch data:", body)
+    console.log("[API] TokenUri field:", body.tokenUri)
+
     const launch = await Launch.create(body)
+    // console.log("[API] Created launch:", launch)
     return NextResponse.json(launch, { status: 201 })
   } catch (error) {
     console.error("Error creating launch:", error)
