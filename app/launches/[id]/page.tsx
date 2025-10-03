@@ -83,7 +83,7 @@ export default function LaunchDetailPage() {
 
       <div className="mx-auto max-w-4xl space-y-6">
         {/* Header Card */}
-        <Card>
+        <Card className="bg-card/80 backdrop-blur-sm border-border/50">
           <CardHeader>
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="flex gap-4">
@@ -195,7 +195,7 @@ export default function LaunchDetailPage() {
 
         {/* Owner Actions */}
         {isOwner && (
-          <Card className="border-primary/50 bg-primary/5">
+          <Card className="border-primary/50 bg-primary/5 backdrop-blur-sm">
             <CardHeader>
               <CardTitle>You own this launch</CardTitle>
               <CardDescription>Manage your token's social links and information</CardDescription>

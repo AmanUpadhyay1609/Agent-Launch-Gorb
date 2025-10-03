@@ -44,13 +44,13 @@ export default function DashboardPage() {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="mb-2 text-4xl font-bold">Your Dashboard</h1>
-          <p className="text-muted-foreground">Manage your token launches</p>
+          <h1 className="mb-2 text-4xl font-bold gradient-text">Your AI-Agents</h1>
+          <p className="text-muted-foreground">Manage your AI agent launches</p>
         </div>
         <Link href="/launch">
           <Button size="lg">
             <Rocket className="mr-2 h-5 w-5" />
-            New Launch
+            Launch AI-Agent
           </Button>
         </Link>
       </div>
@@ -75,7 +75,7 @@ export default function DashboardPage() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {launches.map((launch) => (
-            <Card key={launch._id} className="flex flex-col">
+            <Card key={launch._id} className="flex flex-col bg-card/80 backdrop-blur-sm border-border/50 hover:border-primary/30 hover-lift">
               <CardHeader>
                 <div className="mb-4 flex items-start gap-4">
                   <OrganizationLogo

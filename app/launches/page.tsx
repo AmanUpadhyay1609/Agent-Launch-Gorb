@@ -38,9 +38,9 @@ export default function LaunchesPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-8">
-        <h1 className="mb-2 text-4xl font-bold text-balance">Discover Organizations</h1>
+        <h1 className="mb-2 text-4xl font-bold text-balance gradient-text">Discover AI-Agents</h1>
         <p className="text-muted-foreground text-pretty">
-          Browse organization tokens tied to real services, games, and ecosystems on Gorbchain
+          Explore intelligent AI agents that customers can interact with on Gorbchain
         </p>
       </div>
 
@@ -98,7 +98,7 @@ export default function LaunchesPage() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredLaunches.map((launch) => (
-            <Card key={launch._id} className="flex flex-col transition-shadow hover:shadow-lg">
+            <Card key={launch._id} className="flex flex-col transition-shadow hover:shadow-lg bg-card/80 backdrop-blur-sm border-border/50 hover:border-primary/30 hover-lift">
               <CardHeader>
                 <div className="mb-4 flex items-start gap-4">
                   <OrganizationLogo

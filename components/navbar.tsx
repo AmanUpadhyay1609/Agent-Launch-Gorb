@@ -13,7 +13,7 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
@@ -24,7 +24,7 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-4">
             <Link href="/launches">
-              <Button variant="ghost">Organizations</Button>
+              <Button variant="ghost">AI-Agents</Button>
             </Link>
             {isAuthenticated && (
               <Link href="/dashboard">
@@ -59,7 +59,7 @@ export function Navbar() {
             <div className="flex flex-col space-y-2 pt-4">
               <Link href="/launches">
                 <Button variant="ghost" className="w-full justify-start">
-                  Organizations
+                  AI-Agents
                 </Button>
               </Link>
               {isAuthenticated && (

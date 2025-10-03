@@ -27,9 +27,9 @@ export default function LaunchPage() {
   const wallet = useWallet()
 
   const [formData, setFormData] = useState({
-    organizationName: "",
-    organizationSymbol: "",
-    organizationDescription: "",
+    agentName: "",
+    agentSymbol: "",
+    agentDescription: "",
     tokenUri: "",
     isTradable: false,
     twitter: "",
@@ -64,8 +64,8 @@ export default function LaunchPage() {
       const tokenResult = await createTokenWithWallet({
         connection,
         wallet,
-        name: formData.organizationName,
-        symbol: formData.organizationSymbol,
+        name: formData.agentName,
+        symbol: formData.agentSymbol,
         supply: "1000000", // Fixed 1 million tokens
         decimals: "9",
         uri: formData.tokenUri || "", // Use token URI from form
@@ -90,7 +90,7 @@ export default function LaunchPage() {
 
         const tokenB = {
           address: mint,
-          symbol: formData.organizationSymbol,
+          symbol: formData.agentSymbol,
           decimals: 9,
         }
 
@@ -114,9 +114,9 @@ export default function LaunchPage() {
 
       const launchData = {
         creatorWallet: walletAddress,
-        tokenName: formData.organizationName,
-        tokenSymbol: formData.organizationSymbol,
-        tokenDescription: formData.organizationDescription,
+        tokenName: formData.agentName,
+        tokenSymbol: formData.agentSymbol,
+        tokenDescription: formData.agentDescription,
         tokenSupply: 1000000, // Fixed 1 million tokens
         tokenMint: mint,
         tokenUri: formData.tokenUri?.trim() || undefined,
@@ -135,8 +135,8 @@ export default function LaunchPage() {
       const result = await dispatch(createLaunch(launchData)).unwrap()
 
       toast({
-        title: "Organization launched successfully!",
-        description: `${formData.organizationName} (${formData.organizationSymbol}) is now live`,
+        title: "AI-Agent launched successfully!",
+        description: `${formData.agentName} (${formData.agentSymbol}) is now live`,
       })
 
       router.push(`/launches/${result._id}`)
@@ -174,78 +174,78 @@ export default function LaunchPage() {
     <div className="container mx-auto px-4 py-12">
       <div className="mx-auto max-w-2xl">
         <div className="mb-8 text-center">
-          <h1 className="mb-2 text-4xl font-bold text-balance">Launch Your Organization</h1>
+          <h1 className="mb-2 text-4xl font-bold text-balance gradient-text">Launch Your AI-Agent</h1>
           <p className="text-muted-foreground text-pretty">
-            Create an organization token for your service, game, or ecosystem on Gorbchain
+            Create an intelligent AI agent that customers can interact with. Build the future of AI interaction on Gorbchain.
           </p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Organization Details</CardTitle>
-            <CardDescription>Fill in the information about your organization</CardDescription>
+            <CardTitle>AI-Agent Details</CardTitle>
+            <CardDescription>Fill in the information about your AI agent</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Organization Name */}
+              {/* AI-Agent Name */}
               <div className="space-y-2">
-                <Label htmlFor="organizationName">Organization Name *</Label>
+                <Label htmlFor="agentName">AI-Agent Name *</Label>
                 <Input
-                  id="organizationName"
-                  placeholder="e.g., GameStudio Inc"
-                  value={formData.organizationName}
-                  onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
+                  id="agentName"
+                  placeholder="e.g., Customer Support Bot"
+                  value={formData.agentName}
+                  onChange={(e) => setFormData({ ...formData, agentName: e.target.value })}
                   required
                 />
               </div>
 
-              {/* Organization Symbol */}
+              {/* AI-Agent Symbol */}
               <div className="space-y-2">
-                <Label htmlFor="organizationSymbol">Organization Symbol *</Label>
+                <Label htmlFor="agentSymbol">AI-Agent Symbol *</Label>
                 <Input
-                  id="organizationSymbol"
-                  placeholder="e.g., GAME"
-                  value={formData.organizationSymbol}
-                  onChange={(e) => setFormData({ ...formData, organizationSymbol: e.target.value.toUpperCase() })}
+                  id="agentSymbol"
+                  placeholder="e.g., CSBOT"
+                  value={formData.agentSymbol}
+                  onChange={(e) => setFormData({ ...formData, agentSymbol: e.target.value.toUpperCase() })}
                   required
                   maxLength={10}
                 />
               </div>
 
-              {/* Organization Description */}
+              {/* AI-Agent Description */}
               <div className="space-y-2">
-                <Label htmlFor="organizationDescription">Description *</Label>
+                <Label htmlFor="agentDescription">Description *</Label>
                 <Textarea
-                  id="organizationDescription"
-                  placeholder="Describe your organization and what it does..."
-                  value={formData.organizationDescription}
-                  onChange={(e) => setFormData({ ...formData, organizationDescription: e.target.value })}
+                  id="agentDescription"
+                  placeholder="Describe what your AI agent does and how customers can interact with it..."
+                  value={formData.agentDescription}
+                  onChange={(e) => setFormData({ ...formData, agentDescription: e.target.value })}
                   required
                   rows={4}
                 />
               </div>
 
-              {/* Organization Logo */}
+              {/* AI-Agent Logo */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="tokenUri">Organization Logo URI (Optional)</Label>
+                  <Label htmlFor="tokenUri">AI-Agent Avatar URI (Optional)</Label>
                   <Input
                     id="tokenUri"
                     type="url"
-                    placeholder="https://example.com/logo.png"
+                    placeholder="https://example.com/avatar.png"
                     value={formData.tokenUri}
                     onChange={(e) => setFormData({ ...formData, tokenUri: e.target.value })}
                   />
                   <p className="text-sm text-muted-foreground">
-                    URL to your organization's logo image (PNG, JPG, or SVG)
+                    URL to your AI agent's avatar image (PNG, JPG, or SVG)
                   </p>
                 </div>
                 
                 {/* Image Preview */}
                 <ImagePreview
                   imageUri={formData.tokenUri}
-                  name={formData.organizationName}
-                  symbol={formData.organizationSymbol}
+                  name={formData.agentName}
+                  symbol={formData.agentSymbol}
                   className="w-full"
                 />
               </div>
@@ -254,7 +254,7 @@ export default function LaunchPage() {
               <div className="flex items-center justify-between rounded-lg border border-border p-4">
                 <div className="space-y-0.5">
                   <Label htmlFor="isTradable" className="text-base">
-                    Make Organization Token Tradable
+                    Make AI-Agent Token Tradable
                   </Label>
                   <p className="text-sm text-muted-foreground">
                     Enable trading and automatically create a liquidity pool (95% of tokens will go to pool)
@@ -320,12 +320,12 @@ export default function LaunchPage() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Launching Organization...
+                    Launching AI-Agent...
                   </>
                 ) : (
                   <>
                     <Rocket className="mr-2 h-5 w-5" />
-                    Launch Organization
+                    Launch AI-Agent
                   </>
                 )}
               </Button>
