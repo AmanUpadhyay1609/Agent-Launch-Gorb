@@ -6,6 +6,7 @@ export interface Launch {
   tokenDescription: string
   tokenSupply: number
   tokenMint: string
+  tokenUri?: string
   isTradable: boolean
   poolAddress?: string
   externalSwapUrl?: string
@@ -26,6 +27,7 @@ export interface CreateLaunchInput {
   tokenDescription: string
   tokenSupply: number
   tokenMint: string
+  tokenUri?: string
   isTradable: boolean
   poolAddress?: string
   externalSwapUrl?: string

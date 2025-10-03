@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { OrganizationLogo } from "@/components/organization-logo"
 import { Rocket, Search, ExternalLink, Calendar, TrendingUp } from "lucide-react"
 
 export default function LaunchesPage() {
@@ -99,26 +100,32 @@ export default function LaunchesPage() {
           {filteredLaunches.map((launch) => (
             <Card key={launch._id} className="flex flex-col transition-shadow hover:shadow-lg">
               <CardHeader>
-                <div className="mb-2 flex items-start justify-between">
+                <div className="mb-4 flex items-start gap-4">
+                  <OrganizationLogo
+                    name={launch.tokenName}
+                    symbol={launch.tokenSymbol}
+                    logoUri={launch.tokenUri}
+                    size="lg"
+                  />
                   <div className="flex-1">
-                    <CardTitle className="text-xl">{launch.tokenName}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{launch.tokenSymbol}</p>
+                    <div className="mb-2 flex items-start justify-between">
+                      <div className="flex-1">
+                        <CardTitle className="text-xl">{launch.tokenName}</CardTitle>
+                        <p className="text-sm text-muted-foreground">{launch.tokenSymbol}</p>
+                      </div>
+                      <Badge variant={launch.isTradable ? "default" : "secondary"}>
+                        {launch.isTradable ? "Tradable" : "Non-Tradable"}
+                      </Badge>
+                    </div>
+                    <CardDescription className="line-clamp-3">{launch.tokenDescription}</CardDescription>
                   </div>
-                  <Badge variant={launch.isTradable ? "default" : "secondary"}>
-                    {launch.isTradable ? "Tradable" : "Non-Tradable"}
-                  </Badge>
                 </div>
-                <CardDescription className="line-clamp-3">{launch.tokenDescription}</CardDescription>
               </CardHeader>
               <CardContent className="flex-1">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="h-4 w-4" />
                     <span>{new Date(launch.createdAt).toLocaleDateString()}</span>
-                  </div>
-                  <div className="text-sm">
-                    <span className="text-muted-foreground">Supply: </span>
-                    <span className="font-medium">{launch.tokenSupply.toLocaleString()}</span>
                   </div>
 
                   {launch.isTradable && (

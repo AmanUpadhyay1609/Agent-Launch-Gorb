@@ -17,6 +17,7 @@ import { Switch } from "@/components/ui/switch"
 import { Loader2, Rocket } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { GORB_CONNECTION } from "@/constant"
+import { ImagePreview } from "@/components/image-preview"
 
 export default function LaunchPage() {
   const router = useRouter()
@@ -223,18 +224,28 @@ export default function LaunchPage() {
               </div>
 
               {/* Organization Logo */}
-              <div className="space-y-2">
-                <Label htmlFor="tokenUri">Organization Logo URI (Optional)</Label>
-                <Input
-                  id="tokenUri"
-                  type="url"
-                  placeholder="https://example.com/logo.png"
-                  value={formData.tokenUri}
-                  onChange={(e) => setFormData({ ...formData, tokenUri: e.target.value })}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="tokenUri">Organization Logo URI (Optional)</Label>
+                  <Input
+                    id="tokenUri"
+                    type="url"
+                    placeholder="https://example.com/logo.png"
+                    value={formData.tokenUri}
+                    onChange={(e) => setFormData({ ...formData, tokenUri: e.target.value })}
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    URL to your organization's logo image (PNG, JPG, or SVG)
+                  </p>
+                </div>
+                
+                {/* Image Preview */}
+                <ImagePreview
+                  imageUri={formData.tokenUri}
+                  name={formData.organizationName}
+                  symbol={formData.organizationSymbol}
+                  className="w-full"
                 />
-                <p className="text-sm text-muted-foreground">
-                  URL to your organization's logo image (PNG, JPG, or SVG)
-                </p>
               </div>
 
               {/* Tradable Switch */}

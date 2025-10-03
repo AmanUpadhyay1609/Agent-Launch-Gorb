@@ -8,6 +8,7 @@ const LaunchSchema = new mongoose.Schema(
     tokenDescription: { type: String, required: true },
     tokenSupply: { type: Number, required: true },
     tokenMint: { type: String, required: true },
+    tokenUri: { type: String },
     isTradable: { type: Boolean, required: true },
     poolId: { type: String },
     poolAddress: { type: String },

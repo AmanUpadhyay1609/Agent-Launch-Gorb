@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { OrganizationLogo } from "@/components/organization-logo"
 import { ArrowLeft, ExternalLink, Calendar, TrendingUp, Globe, Twitter, MessageCircle, Send } from "lucide-react"
 
 export default function LaunchDetailPage() {
@@ -84,15 +85,23 @@ export default function LaunchDetailPage() {
         {/* Header Card */}
         <Card>
           <CardHeader>
-            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-              <div className="flex-1">
-                <div className="mb-2 flex items-center gap-3">
-                  <CardTitle className="text-3xl">{launch.tokenName}</CardTitle>
-                  <Badge variant={launch.isTradable ? "default" : "secondary"} className="text-sm">
-                    {launch.isTradable ? "Tradable" : "Non-Tradable"}
-                  </Badge>
+            <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+              <div className="flex gap-4">
+                <OrganizationLogo
+                  name={launch.tokenName}
+                  symbol={launch.tokenSymbol}
+                  logoUri={launch.tokenUri}
+                  size="xl"
+                />
+                <div className="flex-1">
+                  <div className="mb-2 flex items-center gap-3">
+                    <CardTitle className="text-3xl">{launch.tokenName}</CardTitle>
+                    <Badge variant={launch.isTradable ? "default" : "secondary"} className="text-sm">
+                      {launch.isTradable ? "Tradable" : "Non-Tradable"}
+                    </Badge>
+                  </div>
+                  <p className="text-lg text-muted-foreground">{launch.tokenSymbol}</p>
                 </div>
-                <p className="text-lg text-muted-foreground">{launch.tokenSymbol}</p>
               </div>
 
               {launch.isTradable && launch.externalSwapUrl && (
@@ -113,11 +122,7 @@ export default function LaunchDetailPage() {
 
             <Separator />
 
-            <div className="grid gap-4 md:grid-cols-3">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Supply</p>
-                <p className="text-2xl font-bold">{launch.tokenSupply.toLocaleString()}</p>
-              </div>
+            <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <p className="text-sm text-muted-foreground">Launch Date</p>
                 <div className="flex items-center gap-2">
