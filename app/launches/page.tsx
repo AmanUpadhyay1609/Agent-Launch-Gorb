@@ -37,9 +37,9 @@ export default function LaunchesPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-8">
-        <h1 className="mb-2 text-4xl font-bold text-balance">Discover Utility Tokens</h1>
+        <h1 className="mb-2 text-4xl font-bold text-balance">Discover Organizations</h1>
         <p className="text-muted-foreground text-pretty">
-          Browse tokens tied to real services, games, and ecosystems on Gorbchain
+          Browse organization tokens tied to real services, games, and ecosystems on Gorbchain
         </p>
       </div>
 

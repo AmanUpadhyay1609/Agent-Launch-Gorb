@@ -21,7 +21,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             <Link href="/launches">
-              <Button variant="ghost">Launches</Button>
+              <Button variant="ghost">Organizations</Button>
             </Link>
             {isAuthenticated && (
               <Link href="/dashboard">

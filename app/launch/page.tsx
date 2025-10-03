@@ -26,10 +26,9 @@ export default function LaunchPage() {
   const wallet = useWallet()
 
   const [formData, setFormData] = useState({
-    tokenName: "",
-    tokenSymbol: "",
-    tokenDescription: "",
-    tokenSupply: "",
+    organizationName: "",
+    organizationSymbol: "",
+    organizationDescription: "",
     tokenUri: "",
     isTradable: false,
     twitter: "",
@@ -64,9 +63,9 @@ export default function LaunchPage() {
       const tokenResult = await createTokenWithWallet({
         connection,
         wallet,
-        name: formData.tokenName,
-        symbol: formData.tokenSymbol,
-        supply: Number(formData.tokenSupply).toString(),
+        name: formData.organizationName,
+        symbol: formData.organizationSymbol,
+        supply: "1000000", // Fixed 1 million tokens
         decimals: "9",
         uri: formData.tokenUri || "", // Use token URI from form
         freezeAuth: null,
@@ -90,15 +89,15 @@ export default function LaunchPage() {
 
         const tokenB = {
           address: mint,
-          symbol: formData.tokenSymbol,
+          symbol: formData.organizationSymbol,
           decimals: 9,
         }
 
         const poolResult = await createPool(
           tokenA,
           tokenB,
-          0.1, // 1 GORB initial liquidity
-          Number(formData.tokenSupply) * 0.5, // 50% of supply to pool
+          0.1, // 0.1 GORB initial liquidity
+          950000, // 95% of 1M tokens (950,000 tokens) to pool
           wallet,
           connection
         )
@@ -114,10 +113,10 @@ export default function LaunchPage() {
 
       const launchData = {
         creatorWallet: walletAddress,
-        tokenName: formData.tokenName,
-        tokenSymbol: formData.tokenSymbol,
-        tokenDescription: formData.tokenDescription,
-        tokenSupply: Number(formData.tokenSupply),
+        tokenName: formData.organizationName,
+        tokenSymbol: formData.organizationSymbol,
+        tokenDescription: formData.organizationDescription,
+        tokenSupply: 1000000, // Fixed 1 million tokens
         tokenMint: mint,
         isTradable: formData.isTradable,
         poolAddress,
@@ -133,8 +132,8 @@ export default function LaunchPage() {
       const result = await dispatch(createLaunch(launchData)).unwrap()
 
       toast({
-        title: "Token launched successfully!",
-        description: `${formData.tokenName} (${formData.tokenSymbol}) is now live`,
+        title: "Organization launched successfully!",
+        description: `${formData.organizationName} (${formData.organizationSymbol}) is now live`,
       })
 
       router.push(`/launches/${result._id}`)
@@ -172,74 +171,60 @@ export default function LaunchPage() {
     <div className="container mx-auto px-4 py-12">
       <div className="mx-auto max-w-2xl">
         <div className="mb-8 text-center">
-          <h1 className="mb-2 text-4xl font-bold text-balance">Launch Your Utility Token</h1>
+          <h1 className="mb-2 text-4xl font-bold text-balance">Launch Your Organization</h1>
           <p className="text-muted-foreground text-pretty">
-            Create a token tied to your service, game, or ecosystem on Gorbchain
+            Create an organization token for your service, game, or ecosystem on Gorbchain
           </p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Token Details</CardTitle>
-            <CardDescription>Fill in the information about your utility token</CardDescription>
+            <CardTitle>Organization Details</CardTitle>
+            <CardDescription>Fill in the information about your organization</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Token Name */}
+              {/* Organization Name */}
               <div className="space-y-2">
-                <Label htmlFor="tokenName">Token Name *</Label>
+                <Label htmlFor="organizationName">Organization Name *</Label>
                 <Input
-                  id="tokenName"
-                  placeholder="e.g., GameCredits"
-                  value={formData.tokenName}
-                  onChange={(e) => setFormData({ ...formData, tokenName: e.target.value })}
+                  id="organizationName"
+                  placeholder="e.g., GameStudio Inc"
+                  value={formData.organizationName}
+                  onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
                   required
                 />
               </div>
 
-              {/* Token Symbol */}
+              {/* Organization Symbol */}
               <div className="space-y-2">
-                <Label htmlFor="tokenSymbol">Token Symbol *</Label>
+                <Label htmlFor="organizationSymbol">Organization Symbol *</Label>
                 <Input
-                  id="tokenSymbol"
+                  id="organizationSymbol"
                   placeholder="e.g., GAME"
-                  value={formData.tokenSymbol}
-                  onChange={(e) => setFormData({ ...formData, tokenSymbol: e.target.value.toUpperCase() })}
+                  value={formData.organizationSymbol}
+                  onChange={(e) => setFormData({ ...formData, organizationSymbol: e.target.value.toUpperCase() })}
                   required
                   maxLength={10}
                 />
               </div>
 
-              {/* Token Supply */}
+              {/* Organization Description */}
               <div className="space-y-2">
-                <Label htmlFor="tokenSupply">Total Supply *</Label>
-                <Input
-                  id="tokenSupply"
-                  type="number"
-                  placeholder="e.g., 1000000"
-                  value={formData.tokenSupply}
-                  onChange={(e) => setFormData({ ...formData, tokenSupply: e.target.value })}
-                  required
-                  min="1"
-                />
-              </div>
-
-              {/* Token Description */}
-              <div className="space-y-2">
-                <Label htmlFor="tokenDescription">Description *</Label>
+                <Label htmlFor="organizationDescription">Description *</Label>
                 <Textarea
-                  id="tokenDescription"
-                  placeholder="Explain what your token does and what utility it provides..."
-                  value={formData.tokenDescription}
-                  onChange={(e) => setFormData({ ...formData, tokenDescription: e.target.value })}
+                  id="organizationDescription"
+                  placeholder="Describe your organization and what it does..."
+                  value={formData.organizationDescription}
+                  onChange={(e) => setFormData({ ...formData, organizationDescription: e.target.value })}
                   required
                   rows={4}
                 />
               </div>
 
-              {/* Token URI/Logo */}
+              {/* Organization Logo */}
               <div className="space-y-2">
-                <Label htmlFor="tokenUri">Token Logo URI (Optional)</Label>
+                <Label htmlFor="tokenUri">Organization Logo URI (Optional)</Label>
                 <Input
                   id="tokenUri"
                   type="url"
@@ -248,7 +233,7 @@ export default function LaunchPage() {
                   onChange={(e) => setFormData({ ...formData, tokenUri: e.target.value })}
                 />
                 <p className="text-sm text-muted-foreground">
-                  URL to your token's logo image (PNG, JPG, or SVG)
+                  URL to your organization's logo image (PNG, JPG, or SVG)
                 </p>
               </div>
 
@@ -256,10 +241,10 @@ export default function LaunchPage() {
               <div className="flex items-center justify-between rounded-lg border border-border p-4">
                 <div className="space-y-0.5">
                   <Label htmlFor="isTradable" className="text-base">
-                    Make Token Tradable
+                    Make Organization Token Tradable
                   </Label>
                   <p className="text-sm text-muted-foreground">
-                    Enable trading and automatically create a liquidity pool
+                    Enable trading and automatically create a liquidity pool (95% of tokens will go to pool)
                   </p>
                 </div>
                 <Switch
@@ -322,12 +307,12 @@ export default function LaunchPage() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Launching Token...
+                    Launching Organization...
                   </>
                 ) : (
                   <>
                     <Rocket className="mr-2 h-5 w-5" />
-                    Launch Token
+                    Launch Organization
                   </>
                 )}
               </Button>

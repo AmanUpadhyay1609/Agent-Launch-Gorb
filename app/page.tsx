@@ -12,25 +12,25 @@ export default function HomePage() {
         <section className="container mx-auto px-4 py-20 text-center">
           <div className="mx-auto max-w-3xl space-y-6">
             <h1 className="text-5xl font-bold tracking-tight text-balance sm:text-6xl">
-              Launch Utility Tokens That{" "}
+              Launch Organization Tokens That{" "}
               <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Actually Matter
               </span>
             </h1>
             <p className="text-xl text-muted-foreground text-pretty">
-              Stop launching random meme coins. Build tokens tied to real services, games, and ecosystems on Gorbchain.
-              Your brand deserves better.
+              Stop launching random meme coins. Build organization tokens tied to real services, games, and ecosystems on Gorbchain.
+              Your organization deserves better.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <Link href="/launch">
                 <Button size="lg" className="text-lg">
                   <Rocket className="mr-2 h-5 w-5" />
-                  Launch Your Token
+                  Launch Your Organization
                 </Button>
               </Link>
               <Link href="/launches">
                 <Button size="lg" variant="outline" className="text-lg bg-transparent">
-                  Browse Launches
+                  Browse Organizations
                 </Button>
               </Link>
             </div>
@@ -45,9 +45,9 @@ export default function HomePage() {
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/20">
                   <Shield className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 </div>
-                <h3 className="mb-2 text-xl font-semibold">Service-Backed</h3>
+                <h3 className="mb-2 text-xl font-semibold">Organization-Backed</h3>
                 <p className="text-muted-foreground">
-                  Tokens tied to real utility, not speculation. Grant credits, unlock features, or enable access.
+                  Organization tokens tied to real utility, not speculation. Grant credits, unlock features, or enable access.
                 </p>
               </CardContent>
             </Card>
@@ -94,9 +94,9 @@ export default function HomePage() {
         <section className="container mx-auto px-4 py-20">
           <Card className="bg-gradient-to-r from-purple-600 to-pink-600 border-0">
             <CardContent className="py-12 text-center">
-              <h2 className="mb-4 text-3xl font-bold text-white text-balance">Ready to Launch Your Utility Token?</h2>
+              <h2 className="mb-4 text-3xl font-bold text-white text-balance">Ready to Launch Your Organization Token?</h2>
               <p className="mb-6 text-lg text-purple-100 text-pretty">
-                Join the movement of projects building tokens that matter.
+                Join the movement of organizations building tokens that matter.
               </p>
               <Link href="/launch">
                 <Button size="lg" variant="secondary" className="text-lg">
